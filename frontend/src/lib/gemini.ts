@@ -57,7 +57,7 @@ const FALLBACK_RESPONSES = {
 };
 
 class GeminiService {
-  private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  private model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   private chat: any = null;
   private isApiAvailable = !!API_KEY;
 
@@ -73,7 +73,7 @@ class GeminiService {
     
     try {
       console.log('Testing API key...');
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
       const result = await model.generateContent('Hello');
       const response = await result.response;
       console.log('API key test successful:', response.text());
