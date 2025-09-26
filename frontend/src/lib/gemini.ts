@@ -1,7 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// const API_KEY = import.meta.env.VITE_GEMINI_API_KEY ;
-const API_KEY = "AIzaSyA2JFdubdrZQVkRP1twZ5jx070siwGsYmM" ;
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 console.log('API Key loaded:', API_KEY ? 'Yes' : 'No');
 
@@ -58,7 +57,7 @@ const FALLBACK_RESPONSES = {
 };
 
 class GeminiService {
-  private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
   private chat: any = null;
   private isApiAvailable = !!API_KEY;
 
@@ -74,7 +73,7 @@ class GeminiService {
     
     try {
       console.log('Testing API key...');
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
       const result = await model.generateContent('Hello');
       const response = await result.response;
       console.log('API key test successful:', response.text());
