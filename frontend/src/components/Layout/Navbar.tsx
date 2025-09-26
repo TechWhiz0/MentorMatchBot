@@ -17,7 +17,6 @@ import {
   Users,
   UserCheck,
   Bot,
-  Bookmark,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 
@@ -105,17 +104,6 @@ const Navbar = () => {
                   Browse Mentors
                 </Link>
               )}
-              {profile?.role === "mentee" && (
-                <a
-                  href="https://proyectamentory.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-600 hover:text-amber-600 transition-colors flex items-center gap-2 font-medium"
-                >
-                  <Bookmark className="h-4 w-4" />
-                  Snippets
-                </a>
-              )}
             </div>
           )}
 
@@ -178,18 +166,6 @@ const Navbar = () => {
                     </Link>
                   </DropdownMenuItem>
 
-                  {profile?.role === "mentee" && (
-                    <DropdownMenuItem asChild>
-                      <a
-                        href="https://proyectamentory.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Bookmark className="mr-2 h-4 w-4" />
-                        <span>Snippets</span>
-                      </a>
-                    </DropdownMenuItem>
-                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
