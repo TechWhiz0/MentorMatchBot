@@ -57,7 +57,7 @@ const FALLBACK_RESPONSES = {
 };
 
 class GeminiService {
-  private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+  private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   private chat: any = null;
   private isApiAvailable = !!API_KEY;
 
@@ -73,7 +73,7 @@ class GeminiService {
     
     try {
       console.log('Testing API key...');
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const result = await model.generateContent('Hello');
       const response = await result.response;
       console.log('API key test successful:', response.text());
@@ -130,8 +130,23 @@ class GeminiService {
       const responseText = response.text();
       console.log('Gemini API response received:', responseText.substring(0, 100) + '...');
       return responseText;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message to Gemini:', error);
+      
+      // Check for specific error types
+      if (error.message?.includes('404') || error.message?.includes('not found')) {
+        console.log('Model not found, using fallback response');
+        this.isApiAvailable = false;
+        return this.getFallbackResponse(message);
+      }
+      
+      if (error.message?.includes('API key') || error.message?.includes('authentication')) {
+        console.log('API key issue, using fallback response');
+        this.isApiAvailable = false;
+        return this.getFallbackResponse(message);
+      }
+      
+      // For other errors, still use fallback
       this.isApiAvailable = false;
       return this.getFallbackResponse(message);
     }
